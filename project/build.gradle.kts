@@ -7,6 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.21"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    kotlin("kapt") version "1.6.21"
 }
 
 group = "hu.bme.aut.onlab"
@@ -33,11 +34,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core:4.17.1")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.mapstruct:mapstruct:1.5.3.Final")
     compileOnly("org.projectlombok:lombok:1.18.24")
     runtimeOnly("com.mysql:mysql-connector-j:8.0.31")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.5")
     testImplementation("org.springframework.security:spring-security-test:5.7.3")
+    kapt("org.mapstruct:mapstruct-processor:1.5.3.Final")
 }
 
 tasks.withType<KotlinCompile> {
