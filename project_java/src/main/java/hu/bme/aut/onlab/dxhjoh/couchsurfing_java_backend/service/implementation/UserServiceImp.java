@@ -174,7 +174,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
         User user = findByUsername(username);
         validateUserExists(user);
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword());
+        //return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword());
+        return null;
     }
 
     private void validateUserExists(User user) {

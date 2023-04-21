@@ -5,7 +5,9 @@ import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
 
     /**

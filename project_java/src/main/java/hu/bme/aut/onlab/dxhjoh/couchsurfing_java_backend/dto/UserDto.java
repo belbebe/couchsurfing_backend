@@ -16,6 +16,8 @@ public class UserDto {
     private String phone;
     private String password;
     private Set<RoomDto> rooms;
+    /*
     private Set<BookingDto> bookings;
     private LeaderboardDto leaderboardPlace;
+     */
 }

@@ -2,17 +2,14 @@ package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Room")
-@NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
+@Table(name = "room")
+@Getter
+@Setter
 public class Room {
 
     @Id
@@ -26,13 +23,13 @@ public class Room {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "geographical_length", nullable = false)
+    @Column(name = "longitude", nullable = false)
     private float geoLength;
 
-    @Column(name = "geographical_width", nullable = false)
+    @Column(name = "latitude", nullable = false)
     private float geoWidth;
 
-    @Column(name = "room_type", nullable = false)
+    @Column(name = "type", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private RoomType roomType;
 
@@ -43,7 +40,7 @@ public class Room {
     @Enumerated(value = EnumType.STRING)
     private Currency currency;
 
-    @Column(name = "max_guest_num", nullable = false)
+    @Column(name = "max_num_of_guest", nullable = false)
     private int maxGuestNum;
 
     @Column(name = "non_smoking", nullable = false)
