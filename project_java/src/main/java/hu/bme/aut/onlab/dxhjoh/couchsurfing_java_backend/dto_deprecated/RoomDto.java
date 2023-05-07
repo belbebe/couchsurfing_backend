@@ -1,4 +1,4 @@
-package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto;
+package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;

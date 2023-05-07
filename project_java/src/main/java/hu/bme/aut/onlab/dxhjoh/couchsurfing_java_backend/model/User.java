@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "couchsurfing_user")
@@ -37,14 +37,13 @@ public class User {
     @Column(name="user_password", nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
-    private Set<Room> rooms = new HashSet<Room>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Room> rooms = new ArrayList<>();
 
-    /*
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
-    private Set<Booking> bookings = new HashSet<Booking>();
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "userId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Booking> bookings = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Leaderboard leaderboardPlace;
-     */
 }

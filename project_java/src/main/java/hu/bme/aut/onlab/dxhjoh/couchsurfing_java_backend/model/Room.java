@@ -6,6 +6,9 @@ import lombok.*;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "room")
 @Getter
@@ -16,9 +19,6 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id", nullable = false)
     private int id;
-
-    @Column(name = "user_id", nullable = false)
-    private int userId;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -40,7 +40,7 @@ public class Room {
     @Enumerated(value = EnumType.STRING)
     private Currency currency;
 
-    @Column(name = "max_num_of_guest", nullable = false)
+    @Column(name = "max_num_of_guests", nullable = false)
     private int maxGuestNum;
 
     @Column(name = "non_smoking", nullable = false)
@@ -61,7 +61,10 @@ public class Room {
     @Column(name = "additonal_info")
     private String additionalInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "room")
+    private Set<Booking> bookings = new HashSet<Booking>();
 }

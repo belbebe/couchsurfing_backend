@@ -1,7 +1,7 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.controller;
 
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.PasswordDto;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.UserDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.PasswordDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

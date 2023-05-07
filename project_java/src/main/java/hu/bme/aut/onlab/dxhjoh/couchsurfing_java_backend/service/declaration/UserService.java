@@ -1,7 +1,7 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration;
 
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.PasswordDto;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.UserDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.PasswordDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

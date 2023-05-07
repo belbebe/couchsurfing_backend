@@ -1,11 +1,13 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.implementation;
 
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.PasswordDto;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.UserDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.PasswordDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.exception.CouchsurfingRuntimeException;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.mapper.UserMapper;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.repository.UserRepository;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.UserRequest;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.UserResponse;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration.UserService;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.util.ContextUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,19 +28,19 @@ import static hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.util.ContextUtil
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService, UserDetailsService {
+public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDto save(UserDto userDto) {
-        log.trace("UserService : save, username=[{}]", userDto.getUsername());
-        validateUsername(userDto.getUsername());
-        validateUsernameDoesNotExist(userDto.getUsername());
-        User createdUser = userRepository.save(userMapper.toEntity(userDto));
-        return userMapper.toDto(createdUser);
+    public UserResponse save(UserRequest userRequest) {
+        log.trace("UserService : save, username=[{}]", userRequest.getUsername());
+        validateUsername(userRequest.getUsername());
+        validateUsernameDoesNotExist(userRequest.getUsername());
+        User createdUser = userRepository.save(userMapper.toEntity(userRequest));
+        return userMapper.toResponse(createdUser);
     }
 
     private void validateUsername(String username) {
