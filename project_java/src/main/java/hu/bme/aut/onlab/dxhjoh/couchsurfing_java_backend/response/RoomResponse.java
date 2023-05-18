@@ -40,3 +40,5 @@ public class RoomResponse {
 
     private List<BookingResponse> bookings;
 }
+
+// TODO: rating mező felvétele a db-be is, és a megfelelő helyekre (model, request, response)

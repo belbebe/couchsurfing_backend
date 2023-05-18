@@ -20,8 +20,7 @@ public class UserResponse {
     private String email;
 
     private String phone;
-
-    private Leaderboard leaderboardPlace;
+    //private String imageUrl;
 
     private List<Room> rooms;
 

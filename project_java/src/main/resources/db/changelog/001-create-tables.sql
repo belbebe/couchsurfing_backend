@@ -1,5 +1,5 @@
 create table couchsurfing_user(
-                                  user_id int not null primary key,
+                                  user_id int not null primary key auto_increment,
                                   full_name varchar(255) not null,
                                   user_name varchar(255) not null,
                                   birth_date date not null,
@@ -9,7 +9,7 @@ create table couchsurfing_user(
 );
 
 create table leader_board(
-                             lb_id int not null primary key,
+                             lb_id int not null primary key auto_increment,
                              user_id int not null,
                              tenant_score int,
                              host_score int,
@@ -17,7 +17,7 @@ create table leader_board(
 );
 
 create table room(
-                     room_id int not null primary key,
+                     room_id int not null primary key auto_increment,
                      user_id int not null,
                      address varchar(255) not null,
                      longitude float not null,
@@ -36,7 +36,7 @@ create table room(
 );
 
 create table booking(
-                        booking_id int not null primary key ,
+                        booking_id int not null primary key auto_increment,
                         user_id int not null,
                         room_id int not null,
                         start_date date not null,
@@ -52,7 +52,7 @@ create table booking(
 );
 
 create table chat(
-                     chat_id int not null primary key ,
+                     chat_id int not null primary key auto_increment,
                      user_id_from int not null,
                      user_id_to int not null ,
                      message_time timestamp not null,

@@ -7,6 +7,7 @@ import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.RoomRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.BookingResponse;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.RoomResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BookingMapper {
+
     BookingResponse toResponse(Booking entity);
 
     List<BookingResponse> toResponseList(List<Booking> entity);

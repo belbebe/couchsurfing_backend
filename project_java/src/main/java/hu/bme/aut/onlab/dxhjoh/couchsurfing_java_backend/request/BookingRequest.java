@@ -1,9 +1,11 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
+import lombok.Data;
 
 import java.time.LocalDate;
 
+@Data
 public class BookingRequest {
 
     private int id;

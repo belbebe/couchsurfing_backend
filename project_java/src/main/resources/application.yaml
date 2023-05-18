@@ -1,5 +1,13 @@
 spring:
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog-app.xml
   datasource:
-    url: jdbc:mysql://localhost:3306/practice_db
+    url: jdbc:mysql://localhost:3306/couchsurfing_db
     username: root
     password: root
+jwt:
+  expiration: 300000
+springdoc:
+  swagger-ui:
+    path: /swagger

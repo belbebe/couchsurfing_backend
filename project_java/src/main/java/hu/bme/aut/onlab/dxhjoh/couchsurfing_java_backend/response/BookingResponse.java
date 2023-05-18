@@ -30,8 +30,4 @@ public class BookingResponse {
     private boolean payWithChores;
 
     private float totalPrice;
-
-    private int userId;
-
-    private int roomId;
 }

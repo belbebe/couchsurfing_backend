@@ -6,6 +6,7 @@ import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.exception.CouchsurfingR
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.mapper.UserMapper;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.repository.UserRepository;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.PasswordRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.UserRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.UserResponse;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration.UserService;
@@ -28,11 +29,11 @@ import static hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.util.ContextUtil
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService {
+public class UserServiceImp implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserResponse save(UserRequest userRequest) {
@@ -89,9 +90,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDto get(int id) {
+    public UserResponse get(int id) {
         log.trace("UserService : get, id=[{}]", id);
-        return userMapper.toDto(findById(id));
+        return userMapper.toResponse(findById(id));
     }
 
     @Override
@@ -102,9 +103,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Page<UserDto> getAll(Pageable pageable) {
+    public Page<UserResponse> getAll(Pageable pageable) {
         log.trace("UserService : getAll");
-        return userRepository.findAll(pageable).map(userMapper::toDto);
+        return userRepository.findAll(pageable).map(userMapper::toResponse);
     }
 
     @Override
@@ -115,9 +116,9 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDto getMe() {
+    public UserResponse getMe() {
         log.trace("UserService : getMe");
-        return userMapper.toDto(getCurrentUserEntity());
+        return userMapper.toResponse(getCurrentUserEntity());
     }
 
     @Override
@@ -127,17 +128,17 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDto updateMe(UserDto userDto) {
-        log.trace("UserService : updateMe, userDto=[{}]", userDto);
-        User updatedUser = userMapper.update(getCurrentUserEntity(), userDto);
-        return userMapper.toDto(updatedUser);
+    public UserResponse updateMe(UserRequest userReq) {
+        log.trace("UserService : updateMe, userDto=[{}]", userReq);
+        User updatedUser = userMapper.update(getCurrentUserEntity(), userReq);
+        return userMapper.toResponse(updatedUser);
     }
 
     @Override
-    public UserDto update(int id, UserDto userDto) {
-        log.trace("UserService : update, userDto=[{}]", userDto);
-        User updatedUser = userMapper.update(findById(id), userDto);
-        return userMapper.toDto(updatedUser);
+    public UserResponse update(int id, UserRequest userReq) {
+        log.trace("UserService : update, userDto=[{}]", userReq);
+        User updatedUser = userMapper.update(findById(id), userReq);
+        return userMapper.toResponse(updatedUser);
     }
 
     @Override
@@ -153,12 +154,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void password(PasswordDto passwordDto) {
-        log.trace("UserService : password, passwordDto=[{}]", passwordDto);
-        validateOldPassword(passwordDto.getOldPassword());
-        setNewPassword(passwordDto.getNewPassword());
+    public void password(PasswordRequest passwordReq) {
+        log.trace("UserService : password, passwordDto=[{}]", passwordReq);
+        //validateOldPassword(passwordReq.getOldPassword());
+        //setNewPassword(pass.getNewPassword());
     }
 
+    /*
     private void validateOldPassword(String password) {
         if (!passwordEncoder.matches(password, getCurrentUserEntity().getPassword())) {
             throw new CouchsurfingRuntimeException("error.password.invalid");
@@ -168,6 +170,7 @@ public class UserServiceImp implements UserService {
     private void setNewPassword(String password) {
         getCurrentUserEntity().setPassword(passwordEncoder.encode(password));
     }
+     */
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
