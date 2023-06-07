@@ -36,7 +36,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     //private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponse save(UserRequest userRequest) {
+    public UserResponse createUser(UserRequest userRequest) {
         log.trace("UserService : save, username=[{}]", userRequest.getUsername());
         validateUsername(userRequest.getUsername());
         validateUsernameDoesNotExist(userRequest.getUsername());

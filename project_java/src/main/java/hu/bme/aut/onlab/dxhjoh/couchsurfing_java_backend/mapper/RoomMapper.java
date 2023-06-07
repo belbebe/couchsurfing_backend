@@ -6,14 +6,13 @@ import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.RoomRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.UserRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.RoomResponse;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.UserResponse;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = { BookingMapper.class })
 public interface RoomMapper {
+    @Mapping(source = "user", target = "userId", qualifiedByName = "UserToUserId")
     RoomResponse toResponse(Room entity);
 
     List<RoomResponse> toResponseList(List<Room> entity);
@@ -21,4 +20,9 @@ public interface RoomMapper {
     Room toEntity(RoomRequest request);
 
     Room update(@MappingTarget Room entity, RoomRequest request);
+
+    @Named("UserToUserId")
+    public static int userToUserId(User user) {
+        return user.getId().intValue();
+    }
 }

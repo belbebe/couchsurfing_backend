@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "leaderboard")
+@Table(name = "leader_board")
 @Getter
 @Setter
 public class Leaderboard {
@@ -13,7 +13,7 @@ public class Leaderboard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lb_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "tenant_score", nullable = false)
     private int tenantScore;

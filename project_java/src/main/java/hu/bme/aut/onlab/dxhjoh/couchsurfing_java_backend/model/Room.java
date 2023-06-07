@@ -18,7 +18,7 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -58,7 +58,7 @@ public class Room {
     @Column(name = "bicylce_storage", nullable = false)
     private boolean bicycleStorage;
 
-    @Column(name = "additonal_info")
+    @Column(name = "additional_info")
     private String additionalInfo;
 
     @ManyToOne
@@ -67,4 +67,8 @@ public class Room {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "room")
     private Set<Booking> bookings = new HashSet<Booking>();
+
+    public void assignUser(User user) {
+        this.user = user;
+    }
 }

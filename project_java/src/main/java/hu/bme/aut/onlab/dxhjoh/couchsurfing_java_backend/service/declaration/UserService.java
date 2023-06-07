@@ -19,7 +19,7 @@ public interface UserService {
      * @param userReq az új felhasználó adatai
      * @return a mentett felhasználó
      */
-    UserResponse save(UserRequest userReq);
+    UserResponse createUser(UserRequest userReq);
 
     /**
      * Felhasználó lekérése id alapján
