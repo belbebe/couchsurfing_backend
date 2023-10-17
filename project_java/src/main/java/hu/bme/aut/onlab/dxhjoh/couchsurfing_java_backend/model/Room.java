@@ -2,37 +2,34 @@ package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "Room")
-@NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
+@Table(name = "room")
+@Getter
+@Setter
 public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id", nullable = false)
-    private int id;
-
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    private Long id;
 
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "geographical_length", nullable = false)
+    @Column(name = "longitude", nullable = false)
     private float geoLength;
 
-    @Column(name = "geographical_width", nullable = false)
+    @Column(name = "latitude", nullable = false)
     private float geoWidth;
 
-    @Column(name = "room_type", nullable = false)
+    @Column(name = "type", nullable = false)
     @Enumerated(value = EnumType.STRING)
     private RoomType roomType;
 
@@ -43,7 +40,7 @@ public class Room {
     @Enumerated(value = EnumType.STRING)
     private Currency currency;
 
-    @Column(name = "max_guest_num", nullable = false)
+    @Column(name = "max_num_of_guests", nullable = false)
     private int maxGuestNum;
 
     @Column(name = "non_smoking", nullable = false)
@@ -61,10 +58,17 @@ public class Room {
     @Column(name = "bicylce_storage", nullable = false)
     private boolean bicycleStorage;
 
-    @Column(name = "additonal_info")
+    @Column(name = "additional_info")
     private String additionalInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "room")
+    private Set<Booking> bookings = new HashSet<Booking>();
+
+    public void assignUser(User user) {
+        this.user = user;
+    }
 }

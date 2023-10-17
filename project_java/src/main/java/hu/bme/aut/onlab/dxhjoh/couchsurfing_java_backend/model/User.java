@@ -1,31 +1,32 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Table(name = "User")
-@NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
-public class User {
+@Table(name = "couchsurfing_user")
+@Getter
+@Setter
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private int id;
+    private Long id;
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name="username", nullable = true, unique = true)
+    @Column(name="user_name", unique = true)
     private String username;
 
     @Column(name="birth_date", nullable = false)
@@ -37,15 +38,41 @@ public class User {
     @Column(name="phone_number", nullable = false, unique = true)
     private String phone;
 
-    @Column(name="password", nullable = false)
+    @Column(name="user_password", nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
-    private Set<Room> rooms = new HashSet<Room>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Room> rooms = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userId")
-    private Set<Booking> bookings = new HashSet<Booking>();
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "userId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Booking> bookings = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Leaderboard leaderboardPlace;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("user"));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

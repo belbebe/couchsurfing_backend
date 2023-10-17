@@ -1,20 +1,25 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration;
 
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.PasswordDto;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.UserDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.PasswordDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.PasswordRequest;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.UserRequest;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.UserResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface UserService {
 
     /**
      * Új felhasználó mentése
      *
-     * @param userDto az új felhasználó adatai
+     * @param userReq az új felhasználó adatai
      * @return a mentett felhasználó
      */
-    UserDto save(UserDto userDto);
+    UserResponse createUser(UserRequest userReq);
 
     /**
      * Felhasználó lekérése id alapján
@@ -22,7 +27,7 @@ public interface UserService {
      * @param id felhasználó azonosítója
      * @return a lekért felhasználó adatai (UserDto típussal)
      */
-    UserDto get(int id);
+    UserResponse get(int id);
 
     /**
      * Felhasználó keresése id alapján
@@ -37,7 +42,7 @@ public interface UserService {
      *
      * @return egy oldalnyi felhasználó listája
      */
-    Page<UserDto> getAll(Pageable pageable);
+    Page<UserResponse> getAll(Pageable pageable);
 
     /**
      * Felhasználó entitás keresése név alapján
@@ -52,7 +57,7 @@ public interface UserService {
      *
      * @return talált felhasználó adatai
      */
-    UserDto getMe();
+    UserResponse getMe();
 
     /**
      * Aktuálisan bejelentkezett felhasználó entitás
@@ -64,19 +69,19 @@ public interface UserService {
     /**
      * Aktuálisan bejelentkezett felhasználó adatainak módosítása
      *
-     * @param userDto új adatok
+     * @param userReq új adatok
      * @return módosított felhasználó adatai
      */
-    UserDto updateMe(UserDto userDto);
+    UserResponse updateMe(UserRequest userReq);
 
     /**
      * Felhasználó adatainak módosítása id alapján
      *
      * @param id felhasználó azonosítója
-     * @param userDto módosított adatok
+     * @param userReq módosított adatok
      * @return a módosított felhasználó
      */
-    UserDto update(int id, UserDto userDto);
+    UserResponse update(int id, UserRequest userReq);
 
     /**
      * Felhasználó törlése id alapján
@@ -94,7 +99,7 @@ public interface UserService {
     /**
      * Aktuálisan bejelentkezett felhasználó jelszavának módosítása
      *
-     * @param passwordDto régi és új jelszó
+     * @param passwordReq régi és új jelszó
      */
-    void password(PasswordDto passwordDto);
+    void password(PasswordRequest passwordReq);
 }

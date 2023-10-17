@@ -1,11 +1,14 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.implementation;
 
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.PasswordDto;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto.UserDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.PasswordDto;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.exception.CouchsurfingRuntimeException;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.mapper.UserMapper;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.repository.UserRepository;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.PasswordRequest;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.UserRequest;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.UserResponse;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration.UserService;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.util.ContextUtil;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +33,15 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDto save(UserDto userDto) {
-        log.trace("UserService : save, username=[{}]", userDto.getUsername());
-        validateUsername(userDto.getUsername());
-        validateUsernameDoesNotExist(userDto.getUsername());
-        User createdUser = userRepository.save(userMapper.toEntity(userDto));
-        return userMapper.toDto(createdUser);
+    public UserResponse createUser(UserRequest userRequest) {
+        log.trace("UserService : save, username=[{}]", userRequest.getUsername());
+        validateUsername(userRequest.getUsername());
+        validateUsernameDoesNotExist(userRequest.getUsername());
+        User createdUser = userRepository.save(userMapper.toEntity(userRequest));
+        return userMapper.toResponse(createdUser);
     }
 
     private void validateUsername(String username) {
@@ -87,9 +90,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDto get(int id) {
+    public UserResponse get(int id) {
         log.trace("UserService : get, id=[{}]", id);
-        return userMapper.toDto(findById(id));
+        return userMapper.toResponse(findById(id));
     }
 
     @Override
@@ -100,9 +103,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public Page<UserDto> getAll(Pageable pageable) {
+    public Page<UserResponse> getAll(Pageable pageable) {
         log.trace("UserService : getAll");
-        return userRepository.findAll(pageable).map(userMapper::toDto);
+        return userRepository.findAll(pageable).map(userMapper::toResponse);
     }
 
     @Override
@@ -113,9 +116,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDto getMe() {
+    public UserResponse getMe() {
         log.trace("UserService : getMe");
-        return userMapper.toDto(getCurrentUserEntity());
+        return userMapper.toResponse(getCurrentUserEntity());
     }
 
     @Override
@@ -125,17 +128,17 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDto updateMe(UserDto userDto) {
-        log.trace("UserService : updateMe, userDto=[{}]", userDto);
-        User updatedUser = userMapper.update(getCurrentUserEntity(), userDto);
-        return userMapper.toDto(updatedUser);
+    public UserResponse updateMe(UserRequest userReq) {
+        log.trace("UserService : updateMe, userDto=[{}]", userReq);
+        User updatedUser = userMapper.update(getCurrentUserEntity(), userReq);
+        return userMapper.toResponse(updatedUser);
     }
 
     @Override
-    public UserDto update(int id, UserDto userDto) {
-        log.trace("UserService : update, userDto=[{}]", userDto);
-        User updatedUser = userMapper.update(findById(id), userDto);
-        return userMapper.toDto(updatedUser);
+    public UserResponse update(int id, UserRequest userReq) {
+        log.trace("UserService : update, userDto=[{}]", userReq);
+        User updatedUser = userMapper.update(findById(id), userReq);
+        return userMapper.toResponse(updatedUser);
     }
 
     @Override
@@ -151,12 +154,13 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public void password(PasswordDto passwordDto) {
-        log.trace("UserService : password, passwordDto=[{}]", passwordDto);
-        validateOldPassword(passwordDto.getOldPassword());
-        setNewPassword(passwordDto.getNewPassword());
+    public void password(PasswordRequest passwordReq) {
+        log.trace("UserService : password, passwordDto=[{}]", passwordReq);
+        //validateOldPassword(passwordReq.getOldPassword());
+        //setNewPassword(pass.getNewPassword());
     }
 
+    /*
     private void validateOldPassword(String password) {
         if (!passwordEncoder.matches(password, getCurrentUserEntity().getPassword())) {
             throw new CouchsurfingRuntimeException("error.password.invalid");
@@ -166,6 +170,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     private void setNewPassword(String password) {
         getCurrentUserEntity().setPassword(passwordEncoder.encode(password));
     }
+     */
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -174,7 +179,8 @@ public class UserServiceImp implements UserService, UserDetailsService {
         User user = findByUsername(username);
         validateUserExists(user);
 
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword());
+        //return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword());
+        return null;
     }
 
     private void validateUserExists(User user) {
