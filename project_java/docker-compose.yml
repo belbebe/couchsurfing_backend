@@ -1,16 +1,22 @@
-version: "3.9"
+version: '3.9'
+
 services:
-  mysql-server:
-    image: mysql:8.0
-    container_name: couchsuring_db
-    command: --sql-mode="" --default-authentication-plugin=mysql_native_password
+  postgres:
+    image: postgres:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      DATABASES: couchsurfing_db
-    ports:
-      - "3306:3306"
+      POSTGRES_DB: couchsurfing
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
     volumes:
-      - "./db:/docker-entrypoint-initdb.d"
-      - "couchsurfing-mysqldb:/var/lib/mysql"
+      - postgres-db:/data/postgres
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - "5432:5432"
+
 volumes:
-  couchsurfing-mysqldb:
+  postgres-db:
+    driver: local
+
+    # if mysql stuck, "sudo pkill mysqld" stops mysql running in the background

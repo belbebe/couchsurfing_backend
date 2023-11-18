@@ -1,15 +1,21 @@
+create type room_type as enum ('couch', 'room', 'apartment');
+
+create type payment_method_type as enum ('cash', 'card');
+
+create type currency as enum ('HUF', 'EUR', 'USD');
+
 create table couchsurfing_user(
-                                  user_id int not null primary key auto_increment,
-                                  full_name varchar(255) not null,
-                                  user_name varchar(255) not null,
+                                  user_id serial primary key,
+                                  full_name text not null,
+                                  user_name text not null,
                                   birth_date date not null,
-                                  email_address varchar(255) not null,
-                                  phone_number varchar(255) not null,
-                                  user_password varchar(255) not null
+                                  email_address text not null,
+                                  phone_number text not null,
+                                  user_password text not null
 );
 
 create table leader_board(
-                             lb_id int not null primary key auto_increment,
+                             lb_id serial primary key,
                              user_id int not null,
                              tenant_score int,
                              host_score int,
@@ -17,42 +23,45 @@ create table leader_board(
 );
 
 create table room(
-                     room_id int not null primary key auto_increment,
+                     room_id serial primary key,
                      user_id int not null,
-                     address varchar(255) not null,
+                     address text not null,
                      longitude float not null,
                      latitude float not null,
-                     type varchar(255) not null,
+                     room_type room_type not null,
                      price float not null,
-                     currency varchar(255) not null,
+                     price_with_chores float,
+                     currency currency not null,
+                     is_paying_with_chores_possible boolean not null,
                      max_num_of_guests int not null,
                      non_smoking boolean not null,
                      pet_friendly boolean not null,
                      air_conditioner boolean not null,
                      parking boolean not null,
-                     bicylce_storage boolean not null,
-                     additional_info varchar(255),
+                     bicycle_storage boolean not null,
+                     additional_info text,
                      foreign key (user_id) references couchsurfing_user(user_id)
 );
 
 create table booking(
-                        booking_id int not null primary key auto_increment,
+                        booking_id serial primary key,
                         user_id int not null,
                         room_id int not null,
                         start_date date not null,
                         end_date date not null,
-                        payment_method varchar(255) not null,
+                        payment_method payment_method_type not null,
                         approved boolean not null,
                         num_of_guests int not null,
-                        additional_notes varchar(255),
+                        additional_notes text,
                         pay_with_chores boolean not null,
-                        total_price float not null ,
+                        total_price float not null,
+                        currency currency not null,
                         foreign key (user_id) references couchsurfing_user(user_id),
                         foreign key (room_id) references room(room_id)
 );
 
 create table chat(
-                     chat_id int not null primary key auto_increment,
+                     chat_id serial primary key,
                      user_id_from int not null,
                      user_id_to int not null ,
                      message_time timestamp not null,
@@ -60,3 +69,16 @@ create table chat(
                      foreign key (user_id_from) references couchsurfing_user(user_id),
                      foreign key (user_id_to) references couchsurfing_user(user_id)
 );
+
+create table payment_method(
+                                payment_method payment_method_type primary key
+);
+
+create table room_payment_method(
+                                    room_id int references room(room_id) on update cascade on delete cascade,
+                                    payment_method text references payment_method(payment_method),
+                                    constraint room_payment_method_pkey primary key (room_id, payment_method)
+);
+
+insert into payment_method values ('cash');
+insert into payment_method values ('card');
