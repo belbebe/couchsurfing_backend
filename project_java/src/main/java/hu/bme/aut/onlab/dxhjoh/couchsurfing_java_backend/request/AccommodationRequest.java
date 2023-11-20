@@ -2,6 +2,7 @@ package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -9,31 +10,44 @@ import java.time.LocalDate;
 // szállások keresésére adott kérésben szereplő adatok
 @Data
 public class AccommodationRequest {
+    @NotNull
     private String city;
 
+    @NotNull
     private LocalDate startDate;
 
+    @NotNull
     private LocalDate endDate;
 
-    private PaymentMethod paymentMethod;
+    @NotNull
+    private PaymentMethod[] paymentMethod;
 
-    private int priceFrom;
+    private Integer priceFrom;
 
-    private int priceTo;
+    private Integer priceTo;
 
     private Currency currency;
 
-    private float ratingFrom;
+    private Float ratingFrom;
 
-    private float ratingTo;
+    private Float ratingTo;
 
-    private boolean nonSmoking;
+    @NotNull
+    private Boolean nonSmoking;
 
-    private boolean petFriendly;
+    @NotNull
+    private Boolean petFriendly;
 
-    private boolean airConditioner;
+    @NotNull
+    private Boolean airConditioner;
 
-    private boolean parking;
+    @NotNull
+    private Boolean parking;
 
-    private boolean bicycleStorage;
+    @NotNull
+    private Boolean bicycleStorage;
+
+    // id of the user who searches the accommodations
+    @NotNull
+    private Integer tenantId;
 }

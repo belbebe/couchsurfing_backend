@@ -1,6 +1,7 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,41 +17,52 @@ public class RoomRequest {
     private String address;
 
     @NotNull
-    private float geoLength;
+    private Float geoLength;
 
     @NotNull
-    private float geoWidth;
+    private Float geoWidth;
 
     @NotNull
     private RoomType roomType;
 
     @NotNull
-    private float price;
+    private Float price;
 
     @NotNull
     private Currency currency;
 
     @NotNull
-    private int maxGuestNum;
+    private Boolean isPayingWithChoresPossible;
+
+    private Float priceWithChores;
 
     @NotNull
-    private boolean nonSmoking;
+    private Boolean isPayingWithCashIsPossible;
 
     @NotNull
-    private boolean petFriendly;
+    private Boolean isPayingWithCardIsPossible;
 
     @NotNull
-    private boolean airConditioner;
+    private Integer maxGuestNum;
 
     @NotNull
-    private boolean parking;
+    private Boolean nonSmoking;
 
     @NotNull
-    private boolean bicycleStorage;
+    private Boolean petFriendly;
 
-    @Size(max = 255)
+    @NotNull
+    private Boolean airConditioner;
+
+    @NotNull
+    private Boolean parking;
+
+    @NotNull
+    private Boolean bicycleStorage;
+
+    @Size(max = 1000)
     private String additionalInfo;
 
     @NotNull
-    private int userId;
+    private Integer ownerId;
 }

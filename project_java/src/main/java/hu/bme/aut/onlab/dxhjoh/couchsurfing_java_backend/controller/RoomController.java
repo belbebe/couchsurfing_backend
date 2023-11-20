@@ -1,5 +1,6 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.controller;
 
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.AccommodationRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.RoomRequest;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response.RoomResponse;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.declaration.RoomService;
@@ -18,9 +19,16 @@ public class RoomController {
 
     private final RoomService roomService;
 
+    /*
     @GetMapping
     public ResponseEntity<List<RoomResponse>> getAll() {
         return ResponseEntity.ok(roomService.getAllRooms());
+    }
+     */
+
+    @GetMapping
+    public ResponseEntity<List<RoomResponse>> getRoomsBasedOnSearchConditions(@RequestBody AccommodationRequest accReq) {
+        return ResponseEntity.ok(roomService.getRoomsBasedOnSearchConditions(accReq));
     }
 
     @GetMapping("/{id}")

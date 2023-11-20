@@ -1,1 +1,1 @@
-create schema if not exists couchsurfing_db;
+create schema if not exists couchsurfing;

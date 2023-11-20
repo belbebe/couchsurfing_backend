@@ -4,6 +4,7 @@ import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Table(name = "booking")
 @Getter
 @Setter
+@FieldNameConstants
 public class Booking {
 
     @Id
@@ -25,10 +27,13 @@ public class Booking {
     private LocalDate endDate;
 
     @Column(name = "payment_method", nullable = false)
+    @Enumerated(value = EnumType.STRING)
     private PaymentMethod paymentMethod;
 
+    /*
     @Column(name = "approved", nullable = false)
     private boolean approved;
+     */
 
     @Column(name = "num_of_guests", nullable = false)
     private int numOfGuests;
@@ -43,10 +48,13 @@ public class Booking {
     private float totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "tenant_id")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
+
+    @Column(name = "room_id", insertable = false, updatable = false)
+    private Long roomId;
 }

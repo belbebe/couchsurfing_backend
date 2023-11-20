@@ -12,7 +12,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = { BookingMapper.class })
 public interface RoomMapper {
-    @Mapping(source = "user", target = "userId", qualifiedByName = "UserToUserId")
+    @Mapping(source = "owner", target = "ownerId", qualifiedByName = "UserToUserId")
     RoomResponse toResponse(Room entity);
 
     List<RoomResponse> toResponseList(List<Room> entity);

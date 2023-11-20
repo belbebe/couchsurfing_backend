@@ -3,6 +3,7 @@ package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model;
 import jakarta.persistence.*;
 
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.List;
 @Table(name = "couchsurfing_user")
 @Getter
 @Setter
+@FieldNameConstants
 public class User implements UserDetails {
 
     @Id
@@ -41,7 +43,7 @@ public class User implements UserDetails {
     @Column(name="user_password", nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Room> rooms = new ArrayList<>();
 
 

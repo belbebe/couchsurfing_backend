@@ -1,44 +1,56 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RoomResponse {
     private int id;
     
     private String address;
 
-    private float geoLength;
+    private Float geoLength;
 
-    private float geoWidth;
+    private Float geoWidth;
 
     private RoomType roomType;
 
-    private float price;
+    private Float price;
 
     private Currency currency;
 
-    private int maxGuestNum;
+    private boolean payingWithChoresPossible;
 
-    private boolean nonSmoking;
+    private Float priceWithChores;
+
+    private boolean payingWithCashPossible;
+
+    private boolean payingWithCardPossible;
+
+    private Integer maxGuestNum;
+
+    private Boolean nonSmoking;
    
-    private boolean petFriendly;
+    private Boolean petFriendly;
 
-    private boolean airConditioner;
+    private Boolean airConditioner;
 
-    private boolean parking;
+    private Boolean parking;
 
-    private boolean bicycleStorage;
+    private Boolean bicycleStorage;
 
     private String additionalInfo;
 
-    private int userId;
+    private Integer ownerId;
 
     private List<BookingResponse> bookings;
 }
 
 // TODO: rating mező felvétele a db-be is, és a megfelelő helyekre (model, request, response)
+//  vagy szállásadó usert és bérlőt lehet pontozni -> ebben az esetben nem kell

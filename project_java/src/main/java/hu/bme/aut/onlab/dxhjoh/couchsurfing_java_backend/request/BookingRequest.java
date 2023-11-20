@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class BookingRequest {
 
-    private int id;
+    private int id; // ez kell ide?
 
     private LocalDate startDate;
 
@@ -16,7 +16,7 @@ public class BookingRequest {
 
     private PaymentMethod paymentMethod;
 
-    private boolean approved;
+    private boolean approved; // ez kell ide?
 
     private int numOfGuests;
 
@@ -25,6 +25,8 @@ public class BookingRequest {
     private boolean payWithChores;
 
     private float totalPrice;
+
+    // TODO: currency mező DB-ben is
 
     private int renterUserId;
 
