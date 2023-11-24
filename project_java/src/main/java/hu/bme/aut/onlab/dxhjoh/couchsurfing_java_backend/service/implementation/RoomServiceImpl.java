@@ -33,8 +33,11 @@ public class RoomServiceImpl implements RoomService {
     public RoomResponse createRoom(RoomRequest roomReq) {
         User user = userRepository.findById(roomReq.getOwnerId()).orElseThrow(() -> new EntityNotFoundException("User entity not found."));
         Room room = roomMapper.toEntity(roomReq);
+        room.setPayingWithCashPossible(roomReq.getPayingWithCashPossible());
+        room.setPayingWithCardPossible(roomReq.getPayingWithCardPossible());
+        room.setPayingWithChoresPossible(roomReq.getPayingWithChoresPossible());
         room.assignUser(user);
-        log.info("\n\n\n\n\n\n\n\n\n\n"+room.getOwner().getEmail());
+        //log.info("\n\n\n\n\n\n\n\n\n\n"+room.getOwner().getEmail());
         return roomMapper.toResponse(roomRepository.save(room));
     }
 
@@ -62,11 +65,4 @@ public class RoomServiceImpl implements RoomService {
     public void deleteRoom(Long id) {
         roomRepository.deleteById(id);
     }
-
-    /*
-    @Override
-    public void assignBooking(Long bookingId) {
-        userRepository.
-    }
-     */
 }

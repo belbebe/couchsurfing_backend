@@ -3,7 +3,6 @@ package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.repository;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.Booking;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.Room;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request.AccommodationRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -96,9 +95,9 @@ public class RoomRepositoryCustomImpl implements RoomRepositoryCustom {
         subquery.select(subroot.get(Booking.Fields.roomId));
         subquery.distinct(true);
 
-        subquery.where(cb.or(cb.greaterThanOrEqualTo(
+        subquery.where(cb.and(cb.greaterThan(
                 subroot.get(Booking.Fields.endDate), startDate)),
-                cb.lessThanOrEqualTo(subroot.get(Booking.Fields.startDate), endDate));
+                cb.lessThan(subroot.get(Booking.Fields.startDate), endDate));
 
         return cb.not(cb.in(root.get(Room.Fields.id)).value(subquery));
     }

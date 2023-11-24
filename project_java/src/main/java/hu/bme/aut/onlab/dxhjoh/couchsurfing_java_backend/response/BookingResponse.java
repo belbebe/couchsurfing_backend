@@ -1,11 +1,7 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response;
 
+import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.Room;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -21,8 +17,6 @@ public class BookingResponse {
 
     private PaymentMethod paymentMethod;
 
-    private boolean approved;
-
     private int numOfGuests;
 
     private String additionalNotes;
@@ -30,4 +24,8 @@ public class BookingResponse {
     private boolean payWithChores;
 
     private float totalPrice;
+
+    private Currency currency;
+
+    private int roomId;
 }

@@ -1,12 +1,12 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
 import lombok.*;
 
 import jakarta.persistence.*;
 import lombok.experimental.FieldNameConstants;
+import org.hibernate.annotations.ColumnTransformer;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,25 +34,27 @@ public class Room {
 
     @Column(name = "room_type", nullable = false)
     @Enumerated(value = EnumType.STRING)
+    @ColumnTransformer(write = "?::room_type_enum")
     private RoomType roomType;
 
     @Column(name = "price", nullable = false)
     private float price;
 
     @Column(name = "currency", nullable = false)
+    @ColumnTransformer(write = "?::currency_enum")
     @Enumerated(value = EnumType.STRING)
     private Currency currency;
 
     @Column(name = "price_with_chores")
     private Float priceWithChores;
 
-    @Column(name = "is_paying_with_chores_possible", nullable = false)
+    @Column(name = "paying_with_chores_possible", nullable = false)
     private boolean payingWithChoresPossible;
 
-    @Column(name = "is_paying_with_card_possible", nullable = false)
+    @Column(name = "paying_with_card_possible", nullable = false)
     private boolean payingWithCardPossible;
 
-    @Column(name = "is_paying_with_cash_possible", nullable = false)
+    @Column(name = "paying_with_cash_possible", nullable = false)
     private boolean payingWithCashPossible;
 
     @Column(name = "max_num_of_guests", nullable = false)

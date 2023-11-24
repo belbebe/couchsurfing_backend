@@ -1,19 +1,16 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.request;
 
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class RoomRequest {
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 500)
     private String address;
 
     @NotNull
@@ -32,15 +29,15 @@ public class RoomRequest {
     private Currency currency;
 
     @NotNull
-    private Boolean isPayingWithChoresPossible;
+    private Boolean payingWithChoresPossible;
 
     private Float priceWithChores;
 
     @NotNull
-    private Boolean isPayingWithCashIsPossible;
+    private Boolean payingWithCashPossible;
 
     @NotNull
-    private Boolean isPayingWithCardIsPossible;
+    private Boolean payingWithCardPossible;
 
     @NotNull
     private Integer maxGuestNum;
@@ -60,7 +57,6 @@ public class RoomRequest {
     @NotNull
     private Boolean bicycleStorage;
 
-    @Size(max = 1000)
     private String additionalInfo;
 
     @NotNull

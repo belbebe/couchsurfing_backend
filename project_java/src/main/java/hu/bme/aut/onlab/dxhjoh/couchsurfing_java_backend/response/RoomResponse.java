@@ -2,7 +2,6 @@ package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.Currency;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.PaymentMethod;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.enums.RoomType;
 import lombok.Data;
 
@@ -51,6 +50,3 @@ public class RoomResponse {
 
     private List<BookingResponse> bookings;
 }
-
-// TODO: rating mező felvétele a db-be is, és a megfelelő helyekre (model, request, response)
-//  vagy szállásadó usert és bérlőt lehet pontozni -> ebben az esetben nem kell
