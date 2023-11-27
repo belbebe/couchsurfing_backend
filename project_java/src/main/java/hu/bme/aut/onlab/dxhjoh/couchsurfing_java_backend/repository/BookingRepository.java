@@ -17,4 +17,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "additional_notes, pay_with_chores, total_price, booking.currency" +
             " FROM booking JOIN room ON booking.room_id = room.room_id WHERE room.owner_id = ?1", nativeQuery = true)
     List<Booking> findByOwnerId(Long id);
+
+    @Query(value = "SELECT booking_id FROM booking JOIN room ON booking.room_id = room.room_id" +
+            " WHERE room.owner_id = ?2 AND booking.tenant_id = ?1", nativeQuery = true)
+    List<Long> findBookingIdByTenantIdAndOwnerId(Long tenantId, Long ownerId);
 }

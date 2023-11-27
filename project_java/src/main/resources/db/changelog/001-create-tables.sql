@@ -66,7 +66,7 @@ create table chat(
                      user_id_from int not null,
                      user_id_to int not null ,
                      message_time timestamp not null,
-                     message varchar(1000) not null,
+                     message text not null,
                      foreign key (user_id_from) references couchsurfing_user(user_id),
                      foreign key (user_id_to) references couchsurfing_user(user_id)
 );

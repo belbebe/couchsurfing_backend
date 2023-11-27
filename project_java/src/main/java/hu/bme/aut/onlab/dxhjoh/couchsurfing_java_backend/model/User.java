@@ -50,8 +50,8 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private List<Booking> bookings = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private Leaderboard leaderboardPlace;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Leaderboard> leaderboardPlace;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
