@@ -1,7 +1,5 @@
 package hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.service.implementation;
 
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.PasswordDto;
-import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.dto_deprecated.UserDto;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.exception.CouchsurfingRuntimeException;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.mapper.UserMapper;
 import hu.bme.aut.onlab.dxhjoh.couchsurfing_java_backend.model.User;
@@ -156,6 +154,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     public void password(PasswordRequest passwordReq) {
         log.trace("UserService : password, passwordDto=[{}]", passwordReq);
+        // getCurrentUserEntity();
         //validateOldPassword(passwordReq.getOldPassword());
         //setNewPassword(pass.getNewPassword());
     }
